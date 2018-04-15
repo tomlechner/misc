@@ -23,15 +23,15 @@ int main(int argc, char **argv)
 	int listn = num_keycodes * keysyms_per_keycode;
 
 	for (int c=0; c<num_keycodes; c++) {
-		printf("%-4x: ", c + first_keycode);
+		printf("%02x/%d: ", c + first_keycode, c + first_keycode);
 
 		for (int c2=0; c2<keysyms_per_keycode; c2++) {
 
 			if (c2==0) {
-				printf("0x%-4x  ", list[c*keysyms_per_keycode + c2]);
+				printf("%d:0x%-10x  ", c2, list[c*keysyms_per_keycode + c2]);
 			}
 			char *str = XKeysymToString(list[c*keysyms_per_keycode + c2]);
-			printf("%-10s ", str ? str : "(none)");
+			printf("%d:%-15s ", c2, str ? str : "(none)");
 		}
 		printf("\n");
 	}
