@@ -29,11 +29,11 @@ int main(int argc, char **argv)
 
 		for (int c2=0; c2<keysyms_per_keycode; c2++) {
 
-			if (c2==0) {
-				printf("%d:0x%-10x  ", c2, (unsigned int)list[c*keysyms_per_keycode + c2]);
-			}
 			char *str = XKeysymToString(list[c*keysyms_per_keycode + c2]);
-			printf("%d:%-15s ", c2, str ? str : "(none)");
+			printf("%d(%-4x): %-10s ",
+					c2,
+					(unsigned int)list[c*keysyms_per_keycode + c2],
+					str ? str : "(none)");
 		}
 		printf("\n");
 	}
