@@ -10,58 +10,71 @@ merge fork into master
    git merge tlstream/master
    git push
 
-show stuff committed but not pushed:
-	git diff --stat --cached origin/master
+   
+show stuff committed but not pushed:	git diff --stat --cached origin/master
 
-undo last commit: 
-	git reset --soft 'HEAD^'
-
-Remove all uncommitted working changes:  git checkout -- .
+undo last commit:                       git reset --soft 'HEAD^'
+Remove all uncommitted working changes: git checkout -- .
 
 ignore files:
- in top:  .git/info/exclude, add:
+ in top:  .gitignore, add (also add/commit that .gitignore file if you want each repo to use it!):
  	*.[ao]
 	makedepend
 	makedepend.bak
 	.*swp
 
-git log --summary file     --> more detailed of what changed in commit, like file permissions
+more detailed of what changed in commit, like file permissions:   git log --summary file
+file history past renames:        git log --follow -p file
+file history not past renames:    git log -s -p file
 
-git log --follow -p file
- --> file history past renames
+compare last 10 commints:         git diff HEAD~10 HEAD -- core/ustring.h
+compare last 2 commints:          git diff HEAD~2 HEAD -- core/ustring.h
 
-git log -s -p file
- --> file history not past renames
+svn status:                       git status -s
+commit all that's going LOCALLY:  git commit -a  -m 'message'
+commit TO REMOTE MASTER BRANCH:   git push origin master
 
-compare last 10 commints:  git diff HEAD~10 HEAD -- core/ustring.h
-compare last 2 commints:   git diff HEAD~2 HEAD -- core/ustring.h
 
-git status -s  == svn status
+show diff of commit:                  git show aoeuth456th5dtheouithd35tdpy89354789eiuth
+show files changed in commit:         git diff-tree --no-commit-id --name-only -r b03520cfdb2b85939d734ccfda1b4fc8004869a7
+show commits since a particular one:  git rev-list 6ffd5c1177f6b3fe9f7e6a4caef4960c29d5b46c..HEAD
 
-git commit -a  -m 'message' == commit all that's going LOCALLY
+combine/merge last two commits:       git rebase -i HEAD~2
 
-git push origin master    == commit TO REMOTE MASTER BRANCH
+
+-------------stashing--------------------------
+put away changes temporarily:      git stash
+restore from a previous stash:     git stash apply
+
+
+------------- remotes -----------------------
+list remotes:            git remote
+list remotes with urls:  git remote -v
+add remote:              git remote add remoteName https://github.com/godotengine/godot
+
 
 -------------branches--------------------------
 
 what branch are you on:            git branch
 switch to branch:                  git checkout thebranch
-merge another branch into current: git check currentbranch;  git merge otherbranch
+merge another branch into current: git checkout currentbranch;  git merge otherbranch
 list branches:                     git branch -a
 compare between branches:          git diff mybranch master -- myfile.cs
+compare files changed by branch:   git diff --name-only mybranch master
+Create a new branch locally:       git checkout -b [name_of_your_new_branch]
+Create branch from another:        git checkout -b [name_of_your_new_branch] [name of parent branch]
+Push new branch to server:         git push -u origin [name_of_your_new_branch]  
+delete local branch:               git branch -d [branch name]
+delete local branch, force:        git branch -D [branch name]
 
 
-combine/merge last two commits:    git rebase -i HEAD~2
+make local git know about remote source:      git remote add upstream https://github.com/godotengine/godot
+pull from that remote source:                 git fetch upstream
+merge without creating merge commit:          git pull --rebase upstream master
+  if conflicts, do the add/rm, then:          git rebase --continue
 
-git remote add upstream https://github.com/godotengine/godot
-git fetch upstream
-merge without creating merge commit: git pull --rebase upstream master
-
-git commit --amend     <- merge current changes with previous commit
-
-git branch -d branch_name  <- delet a branch
-
-
+delete a branch:                              git branch -d branch_name
+merge current changes with previous commit:   git commit --amend
 
 
 
