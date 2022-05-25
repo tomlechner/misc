@@ -11,7 +11,7 @@ merge fork into master
    git push
 
    
-show stuff committed but not pushed:	git diff --stat --cached origin/master
+show stuff committed but not pushed:	git diff --stat --cached origin/branchname
 
 undo last commit:                       git reset --soft 'HEAD^'
 Remove all uncommitted working changes: git checkout -- .
@@ -76,6 +76,9 @@ merge another branch into current: git checkout currentbranch;  git merge otherb
 on merge failure, sometimes:       git reset --hard HEAD
                                    git clean -f -d   (git clean -f -d -n  <-  do a dry run)
                                    git pull
+Push to branch that somehow got
+unconnected to remote branch:      git push --set-upstream origin the_branch_name
+
 Merge conflict, use theirs:        git checkout --theirs file;  git add file
 
 make local git know about remote source:      git remote add upstream https://github.com/godotengine/godot
@@ -103,6 +106,9 @@ See what files are tracked:         git lfs ls-files
 git request-pull [-p] upstreamCommitHashToTarget urlOfRepoToPullFrom [endCommit]
 
 
+------------- misc --------------------
+get list of years edited:   git log laidout.cc | grep Date | grep -o '20[0-9][0-9]' | sort -u | tr '\n' ' '
+
 -------------fixing--------------------------
 
 restoring last revision of a file:
@@ -110,4 +116,23 @@ restoring last revision of a file:
   git checkout HEAD -- filename
 
 
+-------- linux tools -----
+git gui: GitAhead.. now Gittyup: https://github.com/Murmele/Gittyup
+ 
 
+------- submodules ---------------
+
+add a submodule:       git submodule add -b branch_name https://repo.url your/dir/name
+remove a submodule:    git rm your/dir/name
+update submodule:      git submodule init; git submodule update
+clone with submodules: git clone --recurse-submodules https://repo.url
+
+purge a submodule:
+  git rm --cached path/to/it
+  rm -rf path/to/it
+  in .gitmodules, delete section [submodule ...] about it
+  in .git/config delete section about it
+  rm -rf .git/modules/path/to/it
+
+gotchas:
+- if you add a submodule without branch, beware "fatal: needed a single revision". manually add 'brach = branch_name' to .gitmodules
